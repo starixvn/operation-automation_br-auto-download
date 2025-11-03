@@ -1,0 +1,23 @@
+{
+  "name": "betradar",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "Download.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "playwright test Download.spec.js",
+    "process": "node process_data.js",
+    "download-and-process": "npm run test && npm run process"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.56.1"
+  },
+  "dependencies": {
+    "csv-parser": "^3.2.0",
+    "xlsx": "^0.18.5"
+  }
+}

@@ -1,93 +1,215 @@
-# BR auto download
+# Betradar Automated Data Download & Processing System
 
+Automatically download Betradar event data and split it by date into Excel files.
 
+## Features
 
-## Getting started
+1. **Auto Login** to Betradar Portal
+2. **Auto Download** Live Booking Calendar data (5 days from today)
+3. **Data Processing**:
+   - Remove unnecessary columns
+   - Group by date
+   - Generate separate Excel files
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## System Requirements
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.nexdev.net/operation-automation/br-auto-download.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.nexdev.net/operation-automation/br-auto-download/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+- Node.js v22+
+- Playwright
+- csv-parser
+- xlsx
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+
+```bash
+npm install
+```
 
 ## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### Method 1: Cross-Platform Execution (Recommended) ⭐
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+#### Full Execution (Download + Process)
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+**Windows:**
+```batch
+run.bat
+# or
+npm start
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+**Linux/Mac:**
+```bash
+./run.sh
+# or
+npm start
+```
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+**Universal (All Platforms):**
+```bash
+node main.js
+```
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+This will execute in sequence:
+1. Download latest event data
+2. Process and split into date-based Excel files
 
-## License
-For open source projects, say how it is licensed.
+### Method 2: Step-by-Step Execution
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+#### Download Data Only
+```bash
+npm run test
+# or
+npx playwright test Download.spec.js
+```
+
+#### Process Data Only
+```bash
+npm run process
+# or
+node process_data.js
+```
+
+### Method 3: Windows Batch Files
+
+#### Silent Execution (No pause prompt)
+```batch
+run_silent.bat
+```
+Suitable for scheduled tasks or automated scripts
+
+#### Download Data Only
+```batch
+download_only.bat
+```
+
+#### Process Data Only
+```batch
+process_only.bat
+```
+If you already have downloaded CSV files and only want to reprocess them
+
+## Output
+
+### Downloaded Raw Files
+- Location: `downloads/`
+- Format: `YYYY-MM-DD_Live-Calendar.csv`
+- Example: `2025-10-30_Live-Calendar.csv`
+- **Auto-Detection**: `process_data.js` will automatically process the latest CSV file
+
+### Processed Files
+- Location: `processed_data/`
+- Format: `Bet2-DD-MM-YYYY.xlsx`
+- Examples:
+  - `Bet2-30-10-2025.xlsx` (2,503 rows)
+  - `Bet2-31-10-2025.xlsx` (2,117 rows)
+  - `Bet2-01-11-2025.xlsx` (1,979 rows)
+  - etc...
+
+## Kept Columns
+
+The processed Excel files contain the following 9 columns:
+
+1. EventId
+2. Day
+3. Date
+4. Time
+5. Sport
+6. Category
+7. Tournament
+8. Event
+9. Stream
+
+## Removed Columns
+
+The following columns are removed (consistent with the video processing):
+
+- Unique Tournament
+- Courtid
+- Court
+- Packages
+- Covered from
+- Age group
+- AddOns
+- LO/LD Booking status
+
+## File Structure
+
+```
+betradar/
+├── main.js                   # Main program (cross-platform) ⭐
+├── run.bat                   # Windows startup script
+├── run.sh                    # Linux/Mac startup script
+├── run_silent.bat            # Windows silent execution version
+├── download_only.bat         # Download only (Windows)
+├── process_only.bat          # Process only (Windows)
+├── Download.spec.js          # Playwright automation download script
+├── process_data.js           # JavaScript data processing script
+├── playwright.config.js      # Playwright configuration
+├── package.json              # Node.js project configuration
+├── downloads/                # Downloaded raw CSV files
+├── processed_data/           # Processed Excel files
+└── README.md                 # Documentation
+```
+
+## Configuration
+
+### Modify Date Range
+
+Edit in `Download.spec.js`:
+
+```javascript
+// Current: Download 5 days from today
+targetDate.setDate(today.getDate() + 5);
+
+// Change to download 10 days from today
+targetDate.setDate(today.getDate() + 10);
+```
+
+### Modify Kept Columns
+
+Edit in `process_data.js`:
+
+```javascript
+const columnsToKeep = [
+  'EventId',
+  'Day',
+  'Date',
+  // Add or remove columns...
+];
+```
+
+## Smart Features
+
+### Auto-Detect Latest File 🔍
+
+`process_data.js` will automatically:
+1. Scan all CSV files in the `downloads/` directory
+2. Sort by modification time
+3. Process the latest file
+
+This means:
+- ✅ No need to manually specify filename
+- ✅ Process latest data directly after each download
+- ✅ Can retain historical download records
+
+If there are multiple files:
+```
+downloads/
+├── 2025-10-30_Live-Calendar.csv  (older)
+├── 2025-10-31_Live-Calendar.csv  ← Will process this one
+└── 2025-11-01_Live-Calendar.csv  (if exists)
+```
+
+## Troubleshooting
+
+### Login Failed
+- Check if username and password are correct
+- Confirm network connection is stable
+
+### Download Failed
+- Confirm date range is valid
+- Check if Betradar Portal is working normally
+
+### Processing Failed
+- Confirm CSV file exists in `downloads/` directory
+- Check if file format is correct
